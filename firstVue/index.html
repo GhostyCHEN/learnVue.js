@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{ msg }}
+    </div>
+
+    <div id="app-2">
+        <span v-bind:title="msg">
+            鼠标悬停看信息！！！
+        </span>
+        <span>**********</span>
+        <span title="static">静态</span>
+    </div>
+
+    <div id="app-3">
+        <p v-if="seen">now you see me</p>
+    </div>
+
+    <div id="app-4">
+        <ol>
+            <li v-for='todo in todos'>
+                {{ todo.text}}
+            </li>
+        </ol>
+    </div>
+    
+    <!-- v-on添加一个事件监视器 -->
+    <div id="app-5">
+        <p>{{ msg }}</p>
+        <button v-on:click="reverseMessage">
+            reverse
+        </button>
+    </div>
+
+    <!-- v-model实现输入与状态之间双向绑定 -->
+    <div id="app-6">
+        <p>{{ msg }}</p>
+        <input v-model='msg'>
+    </div>
+
+<!--<div id="app-7">
+        <ol>
+            <!-- 创建一个todo-item组件实例 -->
+    <!--<todo-item></todo-item>
+        </ol>
+    </div> 👇修改-->
+    <div id="app-7">
+        <ol>
+            <todo-item
+            v-for="item in groceryList"
+            v-bind:todo='item'
+            v-bind:key='item.id'
+            ></todo-item>
+        </ol>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
