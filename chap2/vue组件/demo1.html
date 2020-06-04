@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue组件</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+</head>
+<body>
+    <div id="app1">
+        <hello></hello>
+        <hello></hello>
+    </div>
+    <script>
+        Vue.component('hello',{
+            template:"<h1>HelloTemplate</h1>"
+        });
+        new Vue({
+            el:'#app1'
+        })
+        // div得是vue的实例,组件创建好后，只要被vue注册过的div里面，都能使用该组件
+    </script>
+</body>
+</html>

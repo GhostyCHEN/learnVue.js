@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>{{title}}</h1>
+        <button ref="mybtn1" id="btn" @click='btnClick'>show</button>
+        <button ref="mybtn2" id="btn" @click='btnClick'>show</button>
+        <p v-if='showFlag'>显示段落</p>
+        {{lowerCaseTitle}}
+    </div>
+
+
+    <div id="app2">
+        <button @click='changeTitle'>btnTo</button>
+    </div>
+
+    <div id="app3"></div>
+    <script>
+        // 一个Vue实例
+        var v1 = new Vue({
+            el:'#app',
+            data:{
+                title:"This is Title",
+                showFlag:false
+            },
+            methods: {
+                btnClick:function(){
+                    this.showFlag = !this.showFlag;
+                    this.updateTitle("This is new Title");
+                    // 实例属性ref的用法，相当于v1.$data.title 相当于 👉 v1.title
+                    this.$refs.mybtn2.innerText = 'tttttbbbbb';
+                },
+                updateTitle:function(str){
+                    this.title = str;
+                }
+            },
+            computed: {
+                // 直接当做普通属性调用不加括号
+                // 任何data中数据变化立即重新计算
+                // 计算属性会缓存
+                
+                lowerCaseTitle:function(){
+                    return this.title.toLowerCase();
+                }
+            },
+            watch: {
+                title:function(newVal, oldVal){
+                    console.log(newVal);
+                    
+                }
+            },
+        });
+        //新的实例
+        // new Vue({
+        //     el:'#app2'
+        // })
+
+    var v2 = new Vue({
+        el:"#app2",
+        data:{},
+        methods:{
+            changeTitle:function(){
+                v1.title = 'changed title by v2';
+            }
+        }
+    });
+    // 在vue外面操作vue实例--操作属性
+    setTimeout(function(){
+        v1.title = 'st title';
+    },2000)
+
+    // 调用vue实例中的方法--操作方法
+    // setInterval(function(){
+    //     v1.btnClick();
+    // },2000)
+    setTimeout(function(){
+        v1.btnClick();
+    },4000)
+    // vue实例属性
+    // v1.$data
+    // v1.$el
+    
+
+    //动态绑定vue实例到页面中 mount加载
+    var v3 = new Vue({
+        template:"<h1>HelloTemplate</h1>"
+    });
+    v3.$mount('#app3');
+    </script>
+</body>
+</html>

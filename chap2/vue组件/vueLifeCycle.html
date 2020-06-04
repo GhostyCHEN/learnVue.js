@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeCycle</title>
+</head>
+<body>
+    <div id="app1">
+        {{title}}
+        <button type="button" @click="changeTitle">change title</button>
+        <button type="button" @click="destroy">destroy</button>
+    </div>
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+    <script>
+        var vm = new Vue({
+            el:"#app1",
+            data:{
+                title:"this is title",
+            },
+            methods: {
+                changeTitle:function(){
+                    this.title = 'new title';
+                },
+                destroy:function(){
+                    this.$destroy();
+                }
+            },
+            beforeCreate(){
+                console.log('beforeCreate');
+            },
+            create(){
+                console.log('created');
+                
+            },
+            beforeMount(){
+                console.log('beforeMount');
+                
+            },
+            mounted(){
+                console.log('mounted');
+                
+            },
+            beforeUpdate(){
+                console.log('beforeUpdate');
+                
+            },
+            update(){
+                console.log('updated');
+                
+            },
+            beforeDestroy(){
+                console.log('beforeDestroy');
+                
+            },
+            destroy(){
+                console.log('destroy');
+                
+            }
+            
+        })
+    </script>
+</body>
+</html>
