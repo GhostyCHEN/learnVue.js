@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1 v-if='show'>hhh</h1>
+        <h1 v-else>ooo</h1>
+        <!-- v-show实际上是让元素的display属性为none -->
+        <h1 v-show='show'>eee</h1>
+        <input type="button" @click="show=!show" value="Click">
+        <template v-if='show'>
+            <h1>tem</h1>
+            <h1>plate</h1>
+        </template>
+    </div>
+
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                show:false
+            }
+        })
+    </script>
+</body>
+</html>

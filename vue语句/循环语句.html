@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="str in args">
+                {{str}}
+            </li>
+        </ul>
+        <ul>
+            <li v-for="(str,i) in args" :key='i'>
+                value:{{str}} <-----> key:{{i}}
+            </li>
+        </ul>
+        <!-- template实现循环 -->
+        <template v-for="(str,i) in args" :key='i'>
+            <p>{{str}} {{i}}</p>
+        </template>
+
+        <template v-for='(v,k,i) in person'>
+            +++++{{k}}:{{v}}:{{i}}+++++<br>
+        </template>
+
+        <!-- 分页组件上使用 -->
+        <nav>  
+            <ul class="pagination">
+                    <li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>    
+                    <!--======v-for====-->    
+                    <li v-for="n in 10"><a href="#">{{n}}</a></li>        
+                    <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+            </ul>
+        </nav>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                args:[1,2,3,4,5],
+                person:[
+                    {name:'xy',age:20,color:'red'},
+                    {name:'yh',age:18,color:'green'}
+                ]
+            }
+        })
+    </script>
+</body>
+</html>
