@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>component</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+</head>
+<body>
+    <!-- 一个页面只有一个div -->
+    <!-- 其他的都是vue组件 -->
+    <!-- vue组件里的data必须使用function形式对{}对象进行封装，防止对其他数据的修改 -->
+    <!-- 注意：template里必须有一个根节点 -->
+    <div id="app1">
+        <my-cap></my-cap>
+        <my-cap></my-cap>
+    </div>
+    <div id="app2">
+        <cap></cap>
+    </div>
+    <script>
+        /*
+        new Vue({
+            el:'#app2',
+            template:"<div>aaa</div>"
+        });
+
+        Vue.component('my-cap',{
+            data(){
+                return{
+                    status:'helllllllo'
+                }
+            },
+            template:'<p>{{status}}<button @click="changeBtn">btn</button></p>',
+            methods: {
+                changeBtn:function(){
+                    this.status = 'enenenenen'
+                }
+            },
+        });
+        new Vue({
+            el:"#app1"
+        })
+        */
+        var cmp = {
+            data(){
+                return{
+                    status:'hellllllllo'
+                }
+            },
+            template:'<p>{{status}}<button @click="changeBtn">btn</button></p>',
+            methods:{
+                changeBtn:function(){
+                    this.status = 'enenenenen';
+                }
+            }
+        }
+        new Vue({
+            el:"#app1",
+            components:{
+                'my-cap':cmp
+            }
+        })
+        new Vue({
+            el:"#app2",
+            components:{
+                'cap':cmp
+            }
+        })
+    </script>
+</body>
+</html>
