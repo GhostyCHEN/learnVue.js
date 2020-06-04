@@ -1,0 +1,55 @@
+<!-- watch监控参数变化，并调用函数 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input v-model='counter'  type="text">
+        <p>count:{{counter}}</p>
+        <p>result:{{getResult()}}</p>
+        <p>result:{{result}}</p>
+    </div>
+
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                counter:0,
+                result:''
+            },
+            methods: {
+                increase:function(step){
+                    this.counter+=step;
+
+                },
+                getResult:function(){
+                    return this.counter > 10?"大于10":"小于10"
+                }
+            },
+            computed: {
+                // 直接当做普通属性调用不加括号
+                // 任何data中数据变化立即重新计算
+                // 计算属性会缓存
+                getResultComputed:function(){
+                    return this.counter > 10?"大于10":"小于10"
+                }
+            },
+            watch: {
+                    counter:function(newVal,oldVal){
+                        this.result = newVal>10?'>10':"<10";
+                        var vm = this;//当前data
+                        setTimeout(function(){
+                            vm.counter = 0;
+                        },1000);
+                    }
+                }
+
+        })
+    </script>
+</body>
+</html>
