@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>changeStyle</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+    <style>
+        .demo{
+            width:100px;
+            height:100px;
+            background-color: gray;
+            display: inline-block;
+            margin: 10px;
+        }
+        .red{background-color: red;
+                color:#fff;}
+        .green{
+            background-color:green;
+        }
+        .blue{background-color: blue;}
+    </style>
+</head>
+<body>
+    <div id="app">
+        {{attachRed}}
+        <div class="demo" @click='attachRed=!attachRed' :class="{red:attachRed}"></div>
+
+        <div class="demo"></div>
+        <div class="demo"></div>
+
+        <div class="demo" :class="divClasses"></div>
+
+        <input type="text" v-model='color'>
+
+        <div class="demo" :class="color"></div>
+        <div class="demo" :class="[color,{red:attachRed}]">hhh</div>
+        <div class="demo" :style='{backgroundColor:color}'></div>
+    </div>
+
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                attachRed:false,
+                color:'green'
+            },
+            // 加入computed
+            computed: {
+                // 直接当做普通属性调用不加括号
+                // 任何data中数据变化立即重新计算
+                // 计算属性会缓存
+                divClasses:function(){
+                    return {
+                        red:!this.attachRed,
+                        blue:this.attachRed
+                    }
+                }
+            },
+
+        })
+    </script>
+</body>
+</html>
