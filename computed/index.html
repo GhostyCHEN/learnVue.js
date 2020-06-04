@@ -1,0 +1,39 @@
+<!-- 行为转换为了静态的属性 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>computed</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+</head>
+<body>
+    <div id="vue">
+        <p>调用当前时间的方法：{{currentTime1()}}</p>
+        <p>当前时间的计算属性：{{currentTime2}}</p>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el:'#vue',
+            data:{
+                message:'hello Vue',
+            },
+            methods: {
+                currentTime1:function(){
+                    return Date.now();
+                }
+            },
+            computed: {
+                // 直接当做普通属性调用不加括号
+                // 任何data中数据变化立即重新计算
+                // 计算属性会缓存
+                currentTime2:function(){
+                    this.message;
+                    return Date.now();
+                }
+            },
+        })
+    </script>
+</body>
+</html>
