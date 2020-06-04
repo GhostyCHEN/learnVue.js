@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button type="button" @click='increase'>click</button>
+        <p>{{counter}}</p>
+
+
+        <p v-on:mousemove='mo'>
+            mx:{{x}}
+            my:{{y}}
+            ----<span @mousemove='dummy' style="background-color: aqua;">停止鼠标事件</span>
+        </p>
+
+        <!-- 事件修饰符 -->
+        <input type="text" v-on:keyup.enter='alertE'>
+    </div>
+
+    
+
+
+</body>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            counter:0,
+            x:0,
+            y:0
+        },
+        methods: {
+            increase:function(){
+                this.counter++;
+            },
+            mo:function(event){
+                this.x = event.clientX,
+                this.y = event.clientY,
+                console.log(event);
+                
+            },
+            dummy:function(event){
+                event.//阻止冒泡[DOM推荐标准(ie678不兼容)]
+                //ie678用cancelBubble = true
+                //兼容处理快捷键jr-zzmp/jr-stopPropagation
+                stopPropagation();
+            },
+            alertE:function(event){
+                console.log( event.target.value);
+                
+            }
+        },
+    })
+</script>
+</html>
