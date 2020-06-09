@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <ul>
+            <li v-for='item in letters' :key='item'>{{item}}</li>
+        </ul> -->
+        <ul>
+            <li v-for='item in letters' track-by="$index">{{item}}</li>
+        </ul>
+        <button @click='btnClick'>按钮</button>
+    </div>
+ 
+    <script src="../../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                letters:['A','B','C','D','E']
+            },
+            methods: {
+                btnClick(){
+                    // 数组响应式方法
+                    // 1.push
+                    // this.letters.push('aaa');
+                    // 2.pop()
+                    // this.letters.pop();
+                    // 3.shift()
+                    // this.letters.shift();
+                    // 4.unshift()
+                    // this.letters.unshift('aaa');
+                    // 4.splice()
+                    // 5.sort()
+                    // this.letters.sort();
+                    // 6.reverse()
+                    // this.letters.reverse();
+
+                    // 注意：通过索引值修改数组元素不是响应式
+                    // 可以通过 splice()
+                    // 或Vue.set(要修改的值，索引值，修改后的值)
+                }
+            },
+        })
+    </script>
+</body>
+</html>
