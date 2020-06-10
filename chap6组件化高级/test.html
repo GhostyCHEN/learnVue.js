@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>10-作用域插槽</title>
+</head>
+<body>
+
+<div id="app">
+  <cpn>
+    <template slot-scope="slotProps">
+      <ul>
+        <li v-for="item in slotProps.data">{{item}}</li>
+      </ul>
+    </template>
+  </cpn>
+
+
+  <cpn>
+    <template slot-scope="slotProps">
+      <h2>{{slotProps.data.join('-')}}</h2>
+    </template>
+  </cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <slot :data="languages"></slot>
+  </div>
+</template>
+<script src="../js/vue.js"></script>
+<script>
+  const cpn = Vue.extend({
+    template: '#cpn',
+    data() {
+    	return {
+    		languages: ['Java', 'Python', 'JavaScript', 'TypeScript', 'C++', 'OC']
+      }
+    }
+  })
+
+  const app = new Vue({
+    el: '#app',
+    components: {
+    	cpn
+    }
+  })
+</script>
+
+</body>
+</html>
