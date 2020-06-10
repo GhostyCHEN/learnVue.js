@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        
+        <cpn ref='one'></cpn>
+        
+        
+        <button @click='btnClick'>按钮</button>
+    </div>
+    <template id="cpn">
+        <div>
+            <h2>我是子组件</h2>
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                
+            },
+            methods:{
+                btnClick(){
+                    // 1.一般不用下标值去拿
+                    // console.log(this.$children);
+                    // this.$children[0].showMessage();
+                    // console.log(this.$children[0].name);
+                    
+                    // 2.$refs 先在组件标签上附上ref='key'
+                    // $refs是对象类型,默认是空的对象
+                    console.log(this.$refs.one);
+                    
+                    
+                }
+            },
+            
+            components:{
+                cpn:{
+                    template:'#cpn',
+                    data(){
+                        return {
+                            name:'我是子组件中data->name'
+                        }
+                    },
+                    methods: {
+                        showMessage(){
+                            console.log('showMessage');
+                            
+                        }
+                    },
+                }
+            }
+        })
+    </script>
+</body>
+</html>
