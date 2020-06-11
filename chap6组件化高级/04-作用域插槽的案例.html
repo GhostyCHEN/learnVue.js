@@ -11,7 +11,7 @@
         <cpn>
             <!-- 目的是获取子组件中的pLanguages -->
             <template slot-scope='slot'>
-                 <span v-for='item in slot.data'>{{item}} - </span>
+                 <span >{{slot.data.join('-')}} </span>
             </template>
         </cpn>
     </div>
