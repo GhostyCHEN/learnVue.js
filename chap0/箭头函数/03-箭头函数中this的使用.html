@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //什么时候使用箭头函数 =>  将函数作为参数传递
+        // setTimeout(() => {
+            
+        // }, timeout);
+        
+
+        //结论：箭头函数中的this引用的向外层作用域一层层查找this,直到有this的定义
+        const obj = {
+            aaa(){
+                setTimeout(function(){
+                    console.log(this); //Window
+                    
+                })
+
+                setTimeout(() => {
+                    console.log(this); //obj对象
+                });
+            }
+        }
+        obj.aaa();
+
+        const obj = {
+            aaa(){
+                setTimeout(function(){
+                    setTimeout(function(){
+                    console.log(this); //Window
+                    
+                    })
+
+                setTimeout(() => {
+                    console.log(this); //window
+                });
+                    
+                })
+
+                setTimeout(() => {
+                    setTimeout(function(){
+                    console.log(this); //Window
+                    
+                })
+
+                setTimeout(() => {
+                    console.log(this); //obj对象
+                });
+                });
+            }
+        }
+    </script>
+</body>
+</html>

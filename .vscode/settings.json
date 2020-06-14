@@ -4,5 +4,6 @@
         "banner",
         "banner imgs",
         "imgs"
-    ]
+    ],
+    "git.ignoreLimitWarning": true
 }
