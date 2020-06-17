@@ -31,10 +31,10 @@ const router = new Router({
         title:'首页'
       },
       children:[
-        {
-          path:'/',
-          redirect:'news'
-        },
+        // {
+        //   path:'/',
+        //   redirect:'news'
+        // },
         {
           path:'news',
           component:News
@@ -74,13 +74,13 @@ const router = new Router({
 //前置守卫(guard)
 router.beforeEach((to,from,next) => {
   document.title = to.matched[0].meta.title
-  console.log('before')
+  // console.log('before')
   next()
 })
 
 //后置守卫(guard)
 router.afterEach((to,from) =>{
-  console.log('after++++');
+  // console.log('after++++');
 
 })
 

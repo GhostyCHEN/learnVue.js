@@ -19,8 +19,9 @@
     }">档案</router-link> -->
     <!-- 用按钮点击传递 -->
     <button @click="profileClick">档案</button>
-
-    <router-view></router-view>
+    <keep-alive exclude="Profile,User ">
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 

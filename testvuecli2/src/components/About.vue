@@ -9,8 +9,8 @@
   export default {
     name:'About',
     created(){
-      document.title = '关于',
-      console.log('created');
+      document.title = '关于'
+      // console.log('created');
 
     }
   }
