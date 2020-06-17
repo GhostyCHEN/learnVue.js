@@ -1,90 +1,46 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import VueRouter from 'vue-router'
 
+// 导入组件 懒加载方式
+const Home = () => import('../views/home/home')
+const Category = () => import('../views/category/category')
+const Cart = () => import('../views/cart/cart')
+const Profile = () => import('../views/profile/profile')
+
+// 1.安装路由
 Vue.use(Router)
 
-// import Home from '../components/Home'
-// import About from '../components/About'
-// import User from '../components/User'
-// 一级路由
-const Home = () => import('../components/Home')
-const About = () => import('../components/About')
-const User = () => import('../components/User')
-const Profile = () => import('../components/Profile')
-// 二级路由
-const News = () => import('../components/HomeNews')
-const Message = () => import('../components/HomeMessage')
+// 2.创建路由对象
+const routes = [
+  {
+    path:'',
+    redirect:'/home'
+  },
+  {
+    path:'/home',
+    component:Home
+  },
+  {
+    path:'/category',
+    component:Category
+  },
+  {
+    path:'/cart',
+    component:Cart
+  },
+  {
+    path:'/profile',
+    component:Profile
+  },
+]
 
-const router = new Router({
-  //配置路由和组件之间的映射关系
-  routes: [
-    {
-      path:'/',
-      // component:Home,
-      // 重定向
-      redirect:'/home'
-    },
-    {
-      path: '/home',
-      component:Home,
-      meta:{
-        title:'首页'
-      },
-      children:[
-        // {
-        //   path:'/',
-        //   redirect:'news'
-        // },
-        {
-          path:'news',
-          component:News
-        },
-        {
-          path:'message',
-          component:Message
-        }
-      ]
-    },
-    {
-      path: '/about',
-      component:About,
-      meta:{
-        title:'关于'
-      },
-    },
-    {
-      path:'/user/:userId',
-      component:User,
-      meta:{
-        title:'用户'
-      },
-    },
-    {
-      path:'/profile',
-      component:Profile,
-      meta:{
-        title:'档案'
-      },
-    }
-  ],
-  mode:'history',
-
+const router = new VueRouter({
+  routes,
+  mode:'history'
 })
 
-//前置守卫(guard)
-router.beforeEach((to,from,next) => {
-  document.title = to.matched[0].meta.title
-  // console.log('before')
-  next()
-})
-
-//后置守卫(guard)
-router.afterEach((to,from) =>{
-  // console.log('after++++');
-
-})
-
-
+// 3.导出router
 export default router
 
 
