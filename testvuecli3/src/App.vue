@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    
+    <div>aaa</div>
   </div>
 </template>
 
@@ -16,4 +16,5 @@ export default {
 
 <style>
 
+  @import './assets/css/base.css';
 </style>
