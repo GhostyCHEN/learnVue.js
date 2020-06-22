@@ -5,6 +5,7 @@
     <recommend-view :recommends='recommend'></recommend-view>
     <feature-view></feature-view>
     <tab-control class="tab-control" :titles="['流行','新款','精选']"></tab-control>
+    <good-list></good-list>
     <div v-for="i in 100">{{i}}</div>
   </div>
 </template>
@@ -17,6 +18,8 @@ import FeatureView from './childComps/FeatureView'
 
 import NavBar from 'components/common/navbar/NavBar'
 import TabControl from 'components/content/tabControl/TabControl'
+import GoodList from 'components/content/goods/GoodsList'
+
 
 // 网络请求
 import {getHomeMultidata, getHomeGoods} from 'network/home'
@@ -30,7 +33,8 @@ import {getHomeMultidata, getHomeGoods} from 'network/home'
       FeatureView,
 
       NavBar,
-      TabControl
+      TabControl,
+      GoodList
     },
     data(){
       return{
