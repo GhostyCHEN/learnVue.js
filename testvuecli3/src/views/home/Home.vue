@@ -6,11 +6,27 @@
 
 <script>
 import NavBar from 'components/common/navbar/NavBar'
+import {getHomeMultidata} from 'network/home'
+
 
   export default {
     name: "Home",
     components:{
       NavBar
+    },
+    data(){
+      return{
+        banners:[],
+        recommend:[]
+      }
+    },
+    created(){
+      // 1.请求多个数据
+      getHomeMultidata().then(res => {
+        // console.log(res);
+        this.banners = res.data.banner.list;
+        this.recommend = res.data.recommend.list;
+      })
     }
   }
 </script>
