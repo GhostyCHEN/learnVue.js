@@ -60,11 +60,27 @@
 import BScroll from 'better-scroll'
   export default {
     name: "Category",
+    data() {
+      return {
+        scroll:null
+      }
+    },
     created(){
 
     },
     mounted(){
-      new BScroll('.wrapper',{
+      this.scroll = new BScroll('.wrapper',{
+        probeType:3,
+        pullUpLoad:true
+      })
+
+      this.scroll.on('scroll',(position) => {
+        console.log(position);
+
+      })
+
+      this.scroll.on('pullingUp',() => {
+        console.log('上拉加载更多');
 
       })
     }
@@ -76,5 +92,6 @@ import BScroll from 'better-scroll'
     height: 150px;
     background-color: red;
     /* overflow-y: scroll; */
+    overflow: hidden;
   }
 </style>
