@@ -3,7 +3,7 @@
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
     <tab-control
       :titles="['流行','新款','精选']"
-      @tabClick="tabClick" 
+      @tabClick="tabClick"
       ref="tabControl1"
       class="tab-control"
       v-show="isTabFixed"
@@ -19,7 +19,7 @@
       <feature-view></feature-view>
       <tab-control
       :titles="['流行','新款','精选']"
-      @tabClick="tabClick" 
+      @tabClick="tabClick"
       ref="tabControl2"
       ></tab-control>
       <good-list :goods="showGoods"></good-list>
@@ -72,7 +72,8 @@ import {debounce} from "common/utils"
         isShowBackTop:false,
         tabOffsetTop:0,
         isTabFixed:false,
-        saveY:0
+        saveY:0,
+        ItemImgListener:null
       }
     },
     created(){
@@ -91,11 +92,12 @@ import {debounce} from "common/utils"
         // 防抖函数
         const refresh =  debounce(this.$refs.scroll.refresh,200)
 
-      this.$bus.$on('itemImageLoad',() => {
+      this.ItemImgListener = () => {
         // console.log('load');
         // this.$refs.scroll.refresh()
         refresh()
-      })
+      }
+      this.$bus.$on('itemImageLoad',this.ItemImgListener)
 
       // 获取tabControl的offsetTop
       // 所以组件都有一个属性$el -> 用于获取组件中的元素
@@ -108,10 +110,14 @@ import {debounce} from "common/utils"
     activated(){
       this.$refs.scroll.refresh()
       this.$refs.scroll.scrollTo(0,this.saveY,0)
-      
+
     },
     deactivated() {
+      // 1.保存Y值
       this.saveY = this.$refs.scroll.getScrollY()
+
+      // 2.取消全局事件监听
+      this.$bus.$off('itemImageLoad',this.ItemImgListener)
     },
     computed: {
       showGoods(){
