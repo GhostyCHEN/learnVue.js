@@ -28,7 +28,7 @@ import GoodsList from 'components/content/goods/GoodsList'
 import {getDetail, getRecommend, Goods, Shop, GoodsParam} from 'network/detail'
 
 import {debounce} from "common/utils"
-
+import {itemListenerMixin} from "common/mixin"
 
 export default {
   name:"Detail",
@@ -44,6 +44,7 @@ export default {
     Scroll,
     GoodsList
   },
+  mixins:[itemListenerMixin],
   data() {
     return {
       id:null,
@@ -53,7 +54,9 @@ export default {
       detailInfo:{},
       paramInfo:{},
       commentInfo:{},
-      recommends:[]
+      recommends:[],
+
+
     }
   },
   created(){
@@ -96,12 +99,19 @@ export default {
   },
   mounted(){
     // 防抖函数
-        const refresh =  debounce(this.$refs.scroll.refresh,200)
+    //     const refresh =  debounce(this.$refs.scroll.refresh,200)
+
+    // this.itemImgListener = () => {
+    //   refresh()
+    // }
 
 
-    this.$bus.$on('itemImageLoad',() = {
-      refresh()
-    })
+    // // 时间总线 监听图片加载
+    // this.$bus.$on('itemImageLoad', this.itemImgListener)
+    // 👆已经被mixin数组中itemListenerMixin混入
+  },
+  destroyed(){
+    this.$bus.$off('itemImageLoad', this.itemImgListener)
   },
   methods: {
     imageLoad(){

@@ -44,6 +44,8 @@ import BackTop from 'components/content/backTop/BackTop'
 import {getHomeMultidata, getHomeGoods} from 'network/home'
 
 import {debounce} from "common/utils"
+import {itemListenerMixin} from "common/mixin"
+
 // import BScroll from 'better-scroll' 封装
 
   export default {
@@ -59,6 +61,7 @@ import {debounce} from "common/utils"
       Scroll,
       BackTop
     },
+    mixins:[itemListenerMixin],
     data(){
       return{
         banners:[],
@@ -73,7 +76,7 @@ import {debounce} from "common/utils"
         tabOffsetTop:0,
         isTabFixed:false,
         saveY:0,
-        ItemImgListener:null
+
       }
     },
     created(){
@@ -90,14 +93,15 @@ import {debounce} from "common/utils"
     mounted(){
       // 3.监听item中图片加载完成
         // 防抖函数
-        const refresh =  debounce(this.$refs.scroll.refresh,200)
+      //   const refresh =  debounce(this.$refs.scroll.refresh,200)
 
-      this.ItemImgListener = () => {
-        // console.log('load');
-        // this.$refs.scroll.refresh()
-        refresh()
-      }
-      this.$bus.$on('itemImageLoad',this.ItemImgListener)
+      // this.ItemImgListener = () => {
+      //   // console.log('load');
+      //   // this.$refs.scroll.refresh()
+      //   refresh()
+      // }
+      // this.$bus.$on('itemImageLoad',this.ItemImgListener)
+      // 👆已经被mixin数组中itemListenerMixin混入
 
       // 获取tabControl的offsetTop
       // 所以组件都有一个属性$el -> 用于获取组件中的元素
@@ -141,6 +145,8 @@ import {debounce} from "common/utils"
             this.currentType = 'sell'
             break
         }
+
+
         this.$refs.tabControl1.currentIndex = index;
         this.$refs.tabControl2.currentIndex = index;
       },
