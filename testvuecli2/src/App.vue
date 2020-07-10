@@ -1,66 +1,100 @@
 <template>
   <div id="app">
-    <h1>路由相关知识点</h1>
-    <!-- <router-link to="/home" tag="button" replace>首页</router-link>
-    <router-link to="/about" replace>关于</router-link> -->
-    <!-- <button @click="homeClick">首页</button>
-    <button @click="aboutClick">关于</button> -->
+    <h2>-----App:modules中内容-----</h2>
+    <h2>{{$store.state.a.name }}</h2>
+    <button @click="updateName">修改名字</button>
+    <h2>{{$store.getters.fullName}}</h2>
+    <h2>{{$store.getters.fullNameTwo}}</h2>
+    <h2>{{$store.getters.fullNameThree}}</h2>
+    <button @click="asyncUpdatename">异步修改名字</button>
 
-    <router-link to='/home'>首页</router-link>
-    <router-link to='/about'>关于</router-link>
-    <router-link :to="'/user/'+userId">用户</router-link>
-    <!-- <router-link to="/profile">档案</router-link> -->
-    <!-- <router-link :to="{path:'/profile',
-    query:{
-      name:'DGM',
-      age:18,
-      height:1.88
-    }
-    }">档案</router-link> -->
-    <!-- 用按钮点击传递 -->
-    <button @click="profileClick">档案</button>
-    <keep-alive exclude="Profile,User ">
-      <router-view></router-view>
-    </keep-alive>
+    <h2>{{message}}</h2>
+    <h2>{{$store.state.counter}}</h2>
+    <button @click="addition">+</button>
+    <button @click="subtraction">-</button>
+
+    <button @click="addCount(5)">+5</button>
+    <button @click="addCount(10)">+10</button>
+
+    <h2>{{$store.state.info}}</h2>
+    <button @click="changeInfo">修改info</button>
+
+
+
+    <h2>--App内容：getters相关信息--</h2>
+    <h2>{{$store.getters.powerCounter}}</h2>
+    <h2 v-for="item in $store.getters.more20stu" :key="item.id">{{item.name}}</h2>
+    <h2>{{$store.getters.more20stuLength}}</h2>
+    <h2 v-for="item in $store.getters.moreAgeStu(1)" :key="item.name">{{item.name}}</h2>
+
+    <hello-vuex/>
   </div>
 </template>
 
 <script>
+
+import HelloVuex from '@/components/HelloVuex'
 export default {
   name: 'App',
   data(){
     return{
-      userId:"lisi"
+      message:'-----------App内容----------',
     }
   },
+  components:{
+    HelloVuex,
+  },
   methods: {
-    //通过代码的方式修改路由 vue-router
-    //push => pushState
+    addition(){
+      this.$store.commit('increment')
+    },
+    subtraction(){
+      this.$store.commit('decrement')
+    },
+    addCount(count){
+      // Payload : 负载
+      // 1.普通的提交风格
+      // this.$store.commit('incrementCount',count)
 
-    homeClick(){
-      this.$router.push('/home')
-      // this.$router.replace('/home')
-    },
-    aboutClick(){
-      this.$router.push('/about')
-      // this.$router.replace('/about')
-    },
-    profileClick(){
-      this.$router.push({
-        path:'/profile',
-        query:{
-          name:'DGM',
-          age:20,
-          height:1.78
-        }
+      // 2，特殊的提交风格
+      this.$store.commit({
+        type:'incrementCount',
+        count
       })
+    },
+    changeInfo(){
+      // this.$store.commit('updateInfo')
+      // this.$store.dispatch('aUpdateInfo','this is payload')
+      // 参数传函数
+      // this.$store.dispatch('aUpdateInfo', () => {
+      //   console.log('里面成功执行');
+      // })
+      // this.$store.dispatch('aUpdateInfo',{
+      //   message:'我是携带的信息',
+      //   success: () => {
+      //     console.log('里面执行成功');
+
+      //   }
+      // })
+      this.$store
+      .dispatch('aUpdateInfo','我是携带的信息')
+      .then(res => {
+        console.log('里面执行成功');
+
+        console.log(res);
+
+      })
+    },
+    updateName(){
+      this.$store.commit('updateName','Lacsa')
+    },
+    asyncUpdatename(){
+      this.$store.dispatch('aUpdateName')
     }
   },
 }
 </script>
 
 <style>
-  .router-link-active{
-    color: aquamarine;
-  }
+
 </style>
